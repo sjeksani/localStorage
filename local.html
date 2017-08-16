@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    < script type = "text/javascript" >
+    </script>
+</head>
+
+<body>
+    Enter item:
+    <input type="text" id="item" />
+    <input type="button" value="store" onclick="storeItem()" />
+    <br />
+    <ul></ul>
+
+
+    <script type="text/javascript">
+
+    function storeItem() {
+        var item = $('#item').val();
+
+        var items = localStorage.getItem('myItems');
+        console.log(items);
+        if (items != null) {
+            items = JSON.parse(items);
+
+        } else {
+            items = new Array();
+
+        }
+
+        items.push(item);
+
+        localStorage.setItem('myItems', JSON.stringify(items));
+
+        refresh();
+    }
+
+    function refresh() {
+        var items = localStorage.getItem('myItems');
+        var ul = $('ul');
+        ul.html('');
+        if (items != null) {
+            items = JSON.parse(items);
+            $(items).each(function(index, data) {
+                ul.append('<li>' + data + '</li>');
+
+            });
+
+        }
+
+    }
+    $(function() {
+        refresh();
+    });
+    </script>
+</body>
+
+</html>
